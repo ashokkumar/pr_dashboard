@@ -2,13 +2,13 @@
 
 echo 'Can we talk to database?'
 
-PGPASSWORD=$RDS_PASSWORD timeout --foreground 300 sh -c '
-  while ! psql -h $RDS_HOST -U $RDS_USERNAME -c "\list" 1>/dev/null
-  do
-    echo "Failed to connect to database, trying again in 1 second..."
-    sleep 1
-  done
-'
+# PGPASSWORD=$RDS_PASSWORD timeout --foreground 300 sh -c '
+#   while ! psql -h $RDS_HOST -U $RDS_USERNAME -c "\list" 1>/dev/null
+#   do
+#     echo "Failed to connect to database, trying again in 1 second..."
+#     sleep 1
+#   done
+# '
 echo 'Hi database!'
 
 exec "$@"

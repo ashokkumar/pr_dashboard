@@ -5,6 +5,10 @@ class PrController < ApplicationController
     end
   end
 
+  def index
+    render json: {'key': 'ok'}.to_json
+  end
+
   def filter_params
     {
       number: params.number,
