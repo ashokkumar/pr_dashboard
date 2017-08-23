@@ -6,9 +6,14 @@ class ProcessPullRequest
   end
 
   def process
-    p "I am here #{data}"
-    pr = PullRequest.find_or_create_by(number: filtered_data.number)
-    pr.update_attributes(filtered_data)
+    p "*"*30
+    p filtered_data
+    pr = PullRequest.find_by_number(filtered_data[:number])
+    if pr
+      pr.update_attributes(filtered_data)
+    else
+      PullRequest.create(filtered_data)
+    end
   end
 
   private
