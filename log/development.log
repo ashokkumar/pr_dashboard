@@ -284,3 +284,64 @@ Processing by PrController#index as HTML
 Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
 
 
+Started POST "/" for 127.0.0.1 at 2017-08-23 13:36:10 +1000
+Processing by PrController#create as */*
+  Parameters: {"key"=>"value"}
+Completed 204 No Content in 2ms (ActiveRecord: 0.0ms)
+
+
+Started POST "/" for 127.0.0.1 at 2017-08-23 13:36:49 +1000
+Processing by PrController#create as */*
+  Parameters: {"key"=>"value"}
+Completed 204 No Content in 1ms (ActiveRecord: 0.0ms)
+
+
+Started POST "/" for 127.0.0.1 at 2017-08-23 13:37:06 +1000
+  [1m[35m (3.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PrController#create as */*
+  Parameters: {"key"=>"value"}
+Completed 204 No Content in 1ms (ActiveRecord: 0.0ms)
+
+
+Started POST "/" for 127.0.0.1 at 2017-08-23 13:37:40 +1000
+Processing by PrController#create as */*
+  Parameters: {"key"=>"value"}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/" for 127.0.0.1 at 2017-08-23 13:38:15 +1000
+Processing by PrController#create as */*
+  Parameters: {"key"=>"value"}
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/" for 127.0.0.1 at 2017-08-23 13:38:30 +1000
+Processing by PrController#create as */*
+  Parameters: {"key"=>"value"}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/" for 127.0.0.1 at 2017-08-23 13:38:50 +1000
+Processing by PrController#create as */*
+  Parameters: {"key"=>"value"}
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `number' for #<ActionController::Parameters:0x007f8653084c20>):
+  
+app/services/process_pull_request.rb:17:in `filtered_data'
+app/services/process_pull_request.rb:10:in `process'
+app/controllers/pr_controller.rb:4:in `create'
+Started POST "/" for 127.0.0.1 at 2017-08-23 13:39:10 +1000
+Processing by PrController#create as */*
+  Parameters: {"number"=>"123"}
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `number' for #<ActionController::Parameters:0x007f864faaa5c8>):
+  
+app/services/process_pull_request.rb:17:in `filtered_data'
+app/services/process_pull_request.rb:10:in `process'
+app/controllers/pr_controller.rb:4:in `create'

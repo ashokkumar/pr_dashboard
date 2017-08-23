@@ -1,8 +1,9 @@
 class PrController < ApplicationController
-  def create
-    if header['X-GitHub-Event'] == 'pull_request'
+  def create    
+    if request.headers['X-GitHub-Event'] == 'pull_request'
       ProcessPullRequest.new(params).process
     end
+    render :ok
   end
 
   def index

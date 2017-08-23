@@ -6,6 +6,7 @@ class ProcessPullRequest
   end
 
   def process
+    p "I am here #{data}"
     pr = PullRequest.find_or_create_by(number: filtered_data.number)
     pr.update_attributes(filtered_data)
   end
@@ -13,13 +14,17 @@ class ProcessPullRequest
   private
   def filtered_data
     {
-      number: data.number,
-      html_url: data.pull_request.html_url,
-      state: data.pull_request.state,
-      title: data.pull_request.title,
-      pr_created_at: data.pull_request.created_at,
-      pr_closed_at: data.pull_request.closed_at,
-      pr_merged_at: data.pull_request.pr_merged_at
+      number: data['number'],
+      html_url: pr['html_url'],
+      state: pr['state'],
+      title: pr['title'],
+      pr_created_at: pr['created_at'],
+      pr_closed_at: pr['closed_at'],
+      pr_merged_at: pr['pr_merged_at']
     }
+  end
+
+  def pr
+    data['pull_request']
   end
 end
