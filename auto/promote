@@ -1,0 +1,23 @@
+#!/bin/bash -e
+#
+# Promote the given image to the given environment
+
+cd $(dirname $0)/..
+
+repo=${1}
+image_version=${2}
+
+rm -rf tmp/${repo}
+
+git clone ssh://git@git.realestate.com.au/ashok-ramdoss/${repo} tmp/${repo}
+
+cd tmp/${repo}
+
+cat > version-enquiries-api.yml << EOF
+app:
+  image: ${image_version}
+EOF
+
+git add version-enquiries-api.yml
+git commit -m "Promoting docker image - ${2}"
+git push origin master

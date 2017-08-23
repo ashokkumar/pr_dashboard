@@ -1,0 +1,21 @@
+#!/bin/bash -eu
+
+cd $(dirname $0)/..
+
+mkdir -p coverage
+mkdir -p spec/reports
+touch db/structure.sql
+
+# Clean up at the end
+trap "docker-compose down --volumes --remove-orphans" 0
+
+# rebuild if necessary
+docker-compose build dev
+
+docker volume create --name ruby2.4-gem-cache > /dev/null
+
+# Bundle install if necessary
+docker-compose run --rm dev bash -c 'bundle check > /dev/null || bundle install'
+
+# Give a bash or run what's passed in as arguments
+docker-compose run --rm --service-ports dev "$@"

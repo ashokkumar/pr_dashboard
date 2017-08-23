@@ -1,0 +1,33 @@
+version: "2"
+
+services:
+  dev:
+    build: support/dev
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ruby2.4-gem-cache:/usr/local/bundle
+    environment:
+      RDS_HOST: database
+      RDS_USER: pr_dashboard
+      RDS_PASSWORD: pr_dashboard
+      RDS_DB: pr_dashboard
+    entrypoint: support/dev/entrypoint
+    command: support/dev/run
+    depends_on:
+      - database
+    ports:
+      - 9292:9292
+
+  database:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: pr
+      POSTGRES_PASSWORD: pr
+      POSTGRES_DB: pr
+    ports:
+      - 5432:5432
+
+volumes:
+  ruby2.4-gem-cache:
+    external: true

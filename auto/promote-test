@@ -1,0 +1,5 @@
+#!/bin/bash -e
+#
+# Promote docker image to test
+
+auto/promote enquiries-api-in-test "$(cat target/docker-image.txt)"

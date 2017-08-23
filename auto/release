@@ -1,0 +1,31 @@
+#!/bin/bash -e
+#
+# Publish Docker image
+
+cd $(dirname $0)/..
+
+REPOSITORY="registry.cowbell.realestate.com.au/listings/enquiries-api"
+
+VERSION=$(TZ=Australia/Melbourne date +'%Y%m%d%H%M')
+
+# Ensure we have no local changes
+git diff HEAD --exit-code
+
+# Build the image
+docker build -t ${REPOSITORY}:${VERSION} .
+
+# Release to new registry
+docker push ${REPOSITORY}:${VERSION}
+docker tag ${REPOSITORY}:${VERSION} ${REPOSITORY}:latest
+docker push ${REPOSITORY}:latest
+
+# Save image reference
+mkdir -p target
+DIGEST=$(docker pull ${REPOSITORY}:${VERSION} | sed -n 's/^Digest: // p')
+IMAGE="${REPOSITORY}:${VERSION}@${DIGEST}"
+echo "$IMAGE" > target/docker-image.txt
+echo "Released as: $IMAGE"
+
+# Tag Git repo with version
+git tag ${VERSION}
+git push origin ${VERSION}

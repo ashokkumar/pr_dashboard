@@ -1,0 +1,4 @@
+#!/bin/bash -eu
+
+# todo file to provide transition to zero offenses
+auto/dev-environment bundle exec rubocop
