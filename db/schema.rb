@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823011744) do
+ActiveRecord::Schema.define(version: 20170823044406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,4 +27,14 @@ ActiveRecord::Schema.define(version: 20170823011744) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "pull_request_id"
+    t.string "state", null: false
+    t.string "user"
+    t.datetime "submitted_at"
+    t.text "body"
+    t.index ["pull_request_id"], name: "index_reviews_on_pull_request_id"
+  end
+
+  add_foreign_key "reviews", "pull_requests"
 end

@@ -6,8 +6,6 @@ class ProcessPullRequest
   end
 
   def process
-    p "*"*30
-    p filtered_data
     pr = PullRequest.find_by_number(filtered_data[:number])
     if pr
       pr.update_attributes(filtered_data)
