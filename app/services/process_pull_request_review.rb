@@ -1,13 +1,14 @@
 class ProcessPullRequestReview
-  attr_reader :data
+  attr_reader :data, :pr
 
-  def initialize(data)
+  def initialize(data, pr)
     @data = data
+    @pr = pr
   end
 
   def process
-    pr = PullRequest.find_by_number(pr_number)
-    review = Review.create(filtered_data.merge(pull_request: pr))
+    pull_request = PullRequest.find_by_number(pr.number)
+    review = Review.create(filtered_data.merge(pull_request: pull_request))
   end
 
   private
@@ -16,16 +17,11 @@ class ProcessPullRequestReview
   end
 
   def filtered_data
-    review = data['review']
     {
-      state: review['state'],
-      body: review['body'],
-      submitted_at: review['submitted_at'],
-      user: review['user']['login']
+      state: data['state'],
+      body: data['body'],
+      submitted_at: data['submitted_at'],
+      user: data['user']['login']
     }
-  end
-
-  def pr
-    data['pull_request']
   end
 end
